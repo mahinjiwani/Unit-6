@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Giphy API</title>
+</head>
+
+<body>
+    <h1>Animals</h1>
+    <button data-animal="cat">cat</button>
+    <button data-animal="dog">dog</button>
+    <button data-animal="bird">bird</button>
+    <button data-animal="bird">butterfly</button>
+    <button data-animal="bird">rabit</button>
+    <button data-animal="bird">hamster</button>
+    <button data-animal="bird">turtle</button>
+    <button data-animal="bird">frog</button>
+    <div id="gifs-appear-here">
+    </div>
+    <div id="buttons-view"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=hlWK2VoJFTenUwp1xuAc747kcIbJuuwO&q=animals&limit=25&offset=5&rating=G&lang=en"
+
+        $("button").on("click", function() {
+            var animal = $(this).attr("data-animal");
+
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    })    
+    .then(function(response) {
+        var results = response.data;
+
+    for (var i = 0; i < results.length; i++) {
+        var animalDiv = $("<div>");
+        var animalImage = $("<img>");
+        animalImage.attr("src", results[i].images.fixed_height.url);
+        animalDiv.append(animalImage);
+        $("#gifs-appear-here").prepend(animalDiv);
+          }
+        });
+    });
+    
+  </script>
+</body>
+
+</html>
